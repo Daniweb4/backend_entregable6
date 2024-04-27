@@ -63,7 +63,18 @@ async()=>{
     expect(res.body).toBeDefined()
     expect(res.body).toHaveLength(1)
     
-    await user.destroy() 
-    await product.destroy()
     
+})
+test("Get base_url/:id, should return status code 201 and res.body.length===1",
+async()=>{
+    const res = await request(app)
+    .get(`${base_url}/${cartId}`)
+    .set('Authorization',`Bearer ${token}`)
+
+  expect(res.status).toBe(200)
+  expect(res.body).toBeDefined()
+  expect(res.body.quantity).toBe(cart.quantity)
+
+  await user.destroy() 
+  await product.destroy() 
 })
