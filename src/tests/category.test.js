@@ -1,7 +1,7 @@
 const request=require('supertest')
 const app=require("../app")
 
-const url_base=('/api/v1/categories')
+const BASE_URL=('/api/v1/categories')
 let token
 
 let categoryId
@@ -19,25 +19,13 @@ beforeAll(async () => {
 
   token = res.body.token
 })
-
-test("Get 'url_base' should return status code 200 and res.body.length === 1 ",
-async() =>{
-   // token=res.body.token
-    const res = await request(app)
-    .get(url_base)
-   // .set('Authorization', `Bearer ${token}`)
-
-   expect(res.status).toBe(200)
-   expect(res.body).toBeDefined()
-   //expect(res.body).toHaveLength(1)
-})
-test("Post url_base, should return status code 201, res.body.name===categori.name ",
+test("Post BASE_URL, should return status code 201, res.body.name===categori.name ",
 async()=>{
     const categori={
         name:"Electronica"
     }
     const res= await request(app)
-    .post(url_base)
+    .post(BASE_URL)
     .send(categori)
     .set("Authorization", `Bearer ${token}`)
 
@@ -46,13 +34,24 @@ async()=>{
     expect(res.body).toBeDefined()
     expect(res.body.name).toBe(categori.name)
 })
-test("Delete url_base/id, should return status code 204 ",
+test("Get 'BASE_URL' should return status code 200 and res.body.length === 1 ",
+async() =>{
+   // token=res.body.token
+    const res = await request(app)
+    .get(BASE_URL)
+   // .set('Authorization', `Bearer ${token}`)
+
+   expect(res.status).toBe(200)
+   expect(res.body).toBeDefined()
+   expect(res.body).toHaveLength(1)
+})
+test("Delete BASE_URL/:id, should return status code 204 ",
 async()=>{
     const res = await request(app)
-    .delete(`${url_base}/${categoryId}`)
+    .delete(`${BASE_URL}/${categoryId}`)
     .set("Authorization", `Bearer ${token}`)
 
     expect(res.status).toBe(204)
 
-
+    
 })
