@@ -70,10 +70,10 @@ async()=>{
     const res = await request(app)
     .get(`${base_url}/${cartId}`)
     .set('Authorization',`Bearer ${token}`)
-
-  expect(res.status).toBe(200)
-  expect(res.body).toBeDefined()
-  expect(res.body.quantity).toBe(cart.quantity)
+   console.log(res.body)
+    expect(res.status).toBe(200)
+    expect(res.body).toBeDefined()
+    expect(res.body.quantity).toBe(cart.quantity)
 
    
 })
